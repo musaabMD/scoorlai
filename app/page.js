@@ -1,45 +1,50 @@
-import Link from "next/link";
-import ButtonSignin from "@/components/ButtonSignin";
+// page.js
+"use client"
+
+import React from "react"
+import { AppSidebar } from "@/components/side/app-sidebar"
+import { NavActions } from "@/components/side/nav-actions"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import {
+  SidebarInset,
+  SidebarProvider,
+  SidebarTrigger,
+} from "@/components/ui/sidebar"
 
 export default function Page() {
   return (
-    <>
-      <header className="p-4 flex justify-end max-w-7xl mx-auto">
-        <ButtonSignin text="Login" />
-      </header>
-      <main>
-        <section className="flex flex-col items-center justify-center text-center gap-12 px-8 py-24">
-          <h1 className="text-3xl font-extrabold">Ship Fast ⚡️</h1>
-
-          <p className="text-lg opacity-80">
-            The start of your new startup... What are you gonna build?
-          </p>
-
-          <a
-            className="btn btn-primary"
-            href="https://shipfa.st/docs"
-            target="_blank"
-          >
-            Documentation & tutorials{" "}
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-              className="w-5 h-5"
-            >
-              <path
-                fillRule="evenodd"
-                d="M5 10a.75.75 0 01.75-.75h6.638L10.23 7.29a.75.75 0 111.04-1.08l3.5 3.25a.75.75 0 010 1.08l-3.5 3.25a.75.75 0 11-1.04-1.08l2.158-1.96H5.75A.75.75 0 015 10z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </a>
-
-          <Link href="/blog" className="link link-hover text-sm">
-            Fancy a blog?
-          </Link>
-        </section>
-      </main>
-    </>
-  );
+    <SidebarProvider>
+      <AppSidebar />
+      <SidebarInset>
+        <header className="flex h-14 shrink-0 items-center gap-2">
+          <div className="flex flex-1 items-center gap-2 px-3">
+            <SidebarTrigger />
+            <Separator orientation="vertical" className="mr-2 h-4" />
+            <Breadcrumb>
+              <BreadcrumbList>
+                <BreadcrumbItem>
+                  <BreadcrumbPage className="line-clamp-1">
+                    Project Management & Task Tracking
+                  </BreadcrumbPage>
+                </BreadcrumbItem>
+              </BreadcrumbList>
+            </Breadcrumb>
+          </div>
+          <div className="ml-auto px-3">
+            <NavActions />
+          </div>
+        </header>
+        <div className="flex flex-1 flex-col gap-4 px-4 py-10">
+          <div className="mx-auto h-24 w-full max-w-3xl rounded-xl bg-muted/50" />
+          <div className="mx-auto h-full w-full max-w-3xl rounded-xl bg-muted/50" />
+        </div>
+      </SidebarInset>
+    </SidebarProvider>
+  )
 }

@@ -1,17 +1,70 @@
-import ButtonAccount from "@/components/ButtonAccount";
+// app/dashboard/page.js
+"use client"
 
-export const dynamic = "force-dynamic";
+import { NavActions } from "@/components/side/nav-actions"
+import {
+  Breadcrumb,
+  BreadcrumbItem,
+  BreadcrumbList,
+  BreadcrumbPage,
+} from "@/components/ui/breadcrumb"
+import { Separator } from "@/components/ui/separator"
+import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 
-// This is a private page: It's protected by the layout.js component which ensures the user is authenticated.
-// It's a server compoment which means you can fetch data (like the user profile) before the page is rendered.
-// See https://shipfa.st/docs/tutorials/private-page
-export default async function Dashboard() {
+export default function DashboardPage() {
   return (
-    <main className="min-h-screen p-8 pb-24">
-      <section className="max-w-xl mx-auto space-y-8">
-        <ButtonAccount />
-        <h1 className="text-3xl md:text-4xl font-extrabold">Private Page</h1>
-      </section>
-    </main>
-  );
+    <SidebarInset>
+      <header className="flex h-14 shrink-0 items-center gap-2">
+        <div className="flex flex-1 items-center gap-2 px-3">
+          <SidebarTrigger />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbPage className="line-clamp-1">
+                  Project Management & Task Tracking
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+        <div className="ml-auto px-3">
+          <NavActions />
+        </div>
+      </header>
+      <div className="flex flex-1 flex-col gap-4 px-4 py-10">
+        <div className="mx-auto h-24 w-full max-w-3xl rounded-xl bg-muted/50" />
+        <div className="mx-auto h-full w-full max-w-3xl rounded-xl bg-muted/50" />
+      </div>
+    </SidebarInset>
+  )
+}
+
+// Base page template for secondary pages
+export function PageTemplate({ title, children }) {
+  return (
+    <SidebarInset>
+      <header className="flex h-14 shrink-0 items-center gap-2">
+        <div className="flex flex-1 items-center gap-2 px-3">
+          <SidebarTrigger />
+          <Separator orientation="vertical" className="mr-2 h-4" />
+          <Breadcrumb>
+            <BreadcrumbList>
+              <BreadcrumbItem>
+                <BreadcrumbPage className="line-clamp-1">
+                  {title}
+                </BreadcrumbPage>
+              </BreadcrumbItem>
+            </BreadcrumbList>
+          </Breadcrumb>
+        </div>
+        <div className="ml-auto px-3">
+          <NavActions />
+        </div>
+      </header>
+      <div className="flex flex-1 flex-col gap-4 px-4 py-10">
+        {children}
+      </div>
+    </SidebarInset>
+  )
 }
